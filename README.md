@@ -1,3 +1,3 @@
 # CakePHP test project for SynergDev vacancy
 
-"По-хорошему", надо бы переместить логику импорта/экспорта в какую-нибудь модель. Так как импорт/экспорт связан со всеми таблицами, а не с какой-либо одной, оставил обработчики в контроллере. Цепь из трех похожих foreach-ей в ServiceController->import(), думаю, можно как-то оптимизировать, вынеся все в один метод и один foreach 
+"In an amicable way", it would be necessary to move the import/export logic to some model. Since the import/export is associated with all tables, and not with any one, I left the handlers in the controller. I think, A chain of three similar foreach-it in ServiceController->import(),  I can somehow optimize, putting everything in one method and one foreach
