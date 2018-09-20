@@ -42,24 +42,39 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </ul>
         <div class="top-bar-section">
             <ul class="right">
-                <li><?= $this->Html->link(__('Очистить БД'), 
-                                ['controller' => 'Service', 
-                                'action' => 'clear']) ?></li>
-                <li><?= $this->Html->link(__('Импорт'), 
-                                ['controller' => 'Service', 
-                                'action' => 'import']) ?></li>
-                <li><?= $this->Html->link(__('Экспорт'), 
-                                ['controller' => 'Service', 
-                                'action' => 'export']) ?></li>
-                <li><?= $this->Html->link(__('Поставщики'), 
-                                ['controller' => 'Customers', 
-                                'action' => 'index']) ?></li>
-                <li><?= $this->Html->link(__('Категории'), 
-                                ['controller' => 'Categories', 
-                                'action' => 'index']) ?></h1></li>
-                <li><?= $this->Html->link(__('Связи'), 
-                                ['controller' => 'CustomersCategories', 
-                                'action' => 'index']) ?></h1></li>
+
+            
+            <?php if (is_null($this->request->session()->read('Auth.User.role'))) : ?>
+                <li><?= $this->Html->link(__('Вход'), 
+                                ['controller' => 'Users', 
+                                'action' => 'login']) ?></h1></li>
+            <?php else:  ?>
+                <?php if (($this->request->session()->read('Auth.User.role')) == 'admin') : ?>
+                    <li><?= $this->Html->link(__('Добавить пользователя'), 
+                                    ['controller' => 'Users', 
+                                    'action' => 'add']) ?></li>   
+                    <li><?= $this->Html->link(__('Очистить БД'), 
+                                    ['controller' => 'Service', 
+                                    'action' => 'clear']) ?></li>
+                    <li><?= $this->Html->link(__('Импорт'), 
+                                    ['controller' => 'Service', 
+                                    'action' => 'import']) ?></li>
+                    <li><?= $this->Html->link(__('Экспорт'), 
+                                    ['controller' => 'Service', 
+                                    'action' => 'export']) ?></li>
+                <?php endif;  ?>
+                    <li><?= $this->Html->link(__('Поставщики'), 
+                                    ['controller' => 'Customers', 
+                                    'action' => 'index']) ?></li>
+                    <li><?= $this->Html->link(__('Категории'), 
+                                    ['controller' => 'Categories', 
+                                    'action' => 'index']) ?></h1></li>
+                    <li><?= $this->Html->link(__('Выход (' . $this->request->session()->read('Auth.User.username') . ')' ), 
+                                ['controller' => 'Users', 
+                                'action' => 'logout']) ?></h1></li>
+
+            <?php endif;  ?>
+
                 <li><a href="https://github.com/bachinsky1/phonebook" target="_blank">github.com</a></li>
             </ul>
         </div>

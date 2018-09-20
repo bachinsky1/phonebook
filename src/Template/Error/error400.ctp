@@ -25,14 +25,11 @@ if (Configure::read('debug')) :
 <?= $this->element('auto_table_warning') ?>
 <?php
 if (extension_loaded('xdebug')) :
-    xdebug_print_function_stack();
+    xdebug_print_function_stack(); 
 endif;
 
 $this->end();
 endif;
 ?>
-<h2><?= h($message) ?></h2>
-<p class="error">
-    <strong><?= __d('cake', 'Error') ?>: </strong>
-    <?= __d('cake', 'The requested address {0} was not found on this server.', "<strong>'{$url}'</strong>") ?>
-</p>
+<h3><?= __d('Phonebook', 'Запрошенный адрес {0} не найден на сервере', "<strong>'{$url}'</strong>") ?></h3>
+

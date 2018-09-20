@@ -51,5 +51,42 @@ class AppController extends Controller
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
          */
         //$this->loadComponent('Security');
+
+        $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'loginRedirect' => [
+                'controller' => 'Customers',
+                'action' => 'index'
+            ],
+            'authorize' => array('Controller'),
+            'authError' => 'Доступ запрещен',
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ]
+        ]);
     }
+
+    public function isAuthorized($user)
+    {
+        
+        // Администратор может получить доступ к каждому действию
+        if (isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+
+        
+        if (in_array($this->request->getParam('action'), ['index', 'login', 'logout', 'view'])) {
+            return true;
+        }
+
+        // Иначе, запрещаем по умолчанию
+        return false;
+    }
+
+    public function beforeFilter(Event $event)
+    {
+        $this->Auth->allow(['login']);
+    }
+
 }
